@@ -1,0 +1,64 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing: inherit;
+}
+
+html{
+  box-sizing:border-box;
+  font-size:62.5%;
+}
+
+body {
+  background:#eee;
+  font-family:sans-serif;
+}
+
+button, select, a {
+  cursor:pointer;
+}
+
+.mt-2{
+  margin-top:2rem;
+}
+
+.fgrp{
+  margin:1rem 0;
+}
+
+.field-label{
+  display:block;
+  font-size:1.2rem;
+  font-weight:bold;
+  margin-bottom:2px;
+}
+
+.text-input, 
+.select-input {
+  display:block;
+  width:100%;
+  font-size:1.8rem;
+  padding:3px;
+  border:1px solid #ccc;
+  outline:none;
+}
+
+table, th, td{
+  border:1px solid #444;
+  border-collapse:collapse;
+}
+
+th, td {
+  padding:1rem;
+  font-size:1.8rem;
+}
+
+td button:not(:last-child){
+  margin-right:1rem;
+}
+
+th{
+  background:#ccc;
+}
+
+
