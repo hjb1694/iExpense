@@ -54,24 +54,28 @@ class Expense {
 
 class User { 
 
+    public expenses: Expense[] = [];
+    public expenseTotal: number = 0;
+    public id: string = uuidV4();
+
     constructor(
         private firstName: string, 
         private lastName: string, 
-        public expenses?: Expense[], 
-        public expenseTotal?: number,
-        public id?: string
+        expenses?: Expense[], 
+        expenseTotal?: number,
+        id?: string
     ){
 
-        if(!id){
-            this.id = uuidV4();
+        if(id){
+            this.id = id;
         }
 
-        if(!expenses){
-            this.expenses = [];
+        if(expenses){
+            this.expenses = expenses;
         }
 
-        if(!expenseTotal){
-            this.expenseTotal = 0;
+        if(expenseTotal){
+            this.expenseTotal = expenseTotal;
         }
 
     }
@@ -245,15 +249,19 @@ export const useStore = defineStore('useStore', () => {
         console.log('idx', idx);
 
         if(allExpensesFlat[idx].userId !== userId){
-            addExpense(userId, category, description, cost)
-            users[userIdx].removeExpense(expenseId)
+            console.log('user change');
+            addExpense(userId, category, description, cost);
+            const oldUserId = allExpensesFlat.find(exp => exp.expenseId === expenseId).userId;
+            const oldUserIndex = users.findIndex(usr => usr.id === oldUserId);
+            users[oldUserIndex].removeExpense(expenseId);
         }else{
             const userExpIdx = users[userIdx].getExpenses().findIndex(exp => exp.id === expenseId);
             users[userIdx].getExpenses()[userExpIdx].editCategory(category);
             users[userIdx].getExpenses()[userExpIdx].editDescription(description);
             users[userIdx].getExpenses()[userExpIdx].editCost(cost);
-            users[userIdx].updateExpenseTotal();
         }
+
+        users[userIdx].updateExpenseTotal();
 
         peristToLocalStorage();
 
